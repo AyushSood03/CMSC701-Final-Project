@@ -1,4 +1,4 @@
-# CMSC701-Final-Project
+# CMSC701-Final-Project: Sparse Suffix Array Based on Sampling Minimizers
 
 Motivation: We discussed the suffix array in the class, which is a mainstay of full-text indexing data structures. The main shortcoming of the suffix array is its size. Yet, for the purposes of tasks like read mapping (especially for longer reads), it's likely not necessary to have indexed the position of every suffix. Indeed, sparse variants of the suffix array exist that retain only a (usually regularly sampled) collection of offsets in the original text. This project seeks to combine the idea of suffix array sampling with the notion of [minimizers](https://academic.oup.com/bioinformatics/article/20/18/3363/202143), which has been fruitful in helping to select consistent, sparse and informative sets of k-mers.
 
