@@ -15,7 +15,6 @@ class inspectsa {
             String reference_sentinel = tw.ref_sent;
             Integer suffix_array[] = tw.sa;
             int len = suffix_array.length;
-            HashMap<Integer, ArrayList<Integer>> hashmap = tw.ht;
             Integer LCP[] = new Integer[len - 1];
             float lcp_mean = 0;
             float lcp_median = 0;

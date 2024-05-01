@@ -199,8 +199,6 @@ class querysa {
                     String query_name = query_names.get(i).substring(1);
                     int char_cmp_lb = 0;
                     int char_cmp_ub = 0;
-                    int pref_interval_lb = 0;
-                    int pref_interval_ub = 0;
                     int k = 0;
                     ArrayList<Integer> hits = new ArrayList<Integer>();
                     String P = query_list.get(i);

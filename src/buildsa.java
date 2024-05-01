@@ -36,7 +36,6 @@ class buildsa {
         //Add sentinel '$' to reference
         String reference_sentinel = reference_str + "$";
         int len = reference_sentinel.length();
-        char[] rsch_arr = reference_sentinel.toCharArray();
         //Build suffix array
         Integer suffix_array[] = new Integer[len];
         for (int i = 0; i < len; i++) {
