@@ -167,10 +167,28 @@ class buildminimizersa {
             System.out.println("Checking End Minimizers...");
             int highestIndex = suffixArrayList.get(suffixArrayList.size() - 1);
             if (!suffixArrayList.contains(0)) {
-                suffixArrayList.add(0);
+                suffixArrayList.add(0, 0);
             }
-            if (highestIndex < (len - k)) {
-                suffixArrayList.add(len - k);
+            if (highestIndex < (len - kmerWidth)) {
+                suffixArrayList.add(suffixArrayList.size() - 1, len - kmerWidth);
+            }
+            try {
+                FileWriter fw = new FileWriter("../bin/minimizers_vis.txt");
+                fw.write(reference_sentinel.substring(0, 130) + "\n");
+                for (int i = 0; i < 130; i++) {
+                    System.out.println(i + " / " + 130);
+                    for (int j = 0; j < suffixArrayList.get(i); j++) {
+                        fw.write(" ");
+                    }
+                    for (int j = suffixArrayList.get(i); j < suffixArrayList.get(i) + kmerWidth; j++) {
+                        fw.write(reference_sentinel.charAt(j));
+                    }
+                    fw.write("\n");
+                }
+                fw.close();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
             }
             Object temp_suffix_array[] = suffixArrayList.toArray();
             Integer suffix_array[] = new Integer[temp_suffix_array.length];
