@@ -31,6 +31,8 @@ The input consists of 3 arguments, given in this order:
 5. w - minimizer group width (so far tested with 20, 4)
 6. kmerwidth - width of kmer (so far tested with 20, 4)
 
+Note: buildminimizersa takes a very long time to run due to the size of the current dataset.
+
 queryminimizersa: Input/Output
 1. index - the path to the binary file containing the serialized suffix array (as written by buildsa above).
 2. queries - the path to an input file in FASTA format containing a set of records.
