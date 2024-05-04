@@ -131,6 +131,7 @@ class buildminimizersa {
             System.out.println("Building Suffix Array...");
             ArrayList<Integer> suffixArrayList = new ArrayList<Integer>();
             for (int i = 0; i < (len - (kmerWidth + w - 1)); i++) {
+                System.out.println(i + " / " + (len - (kmerWidth + w - 1)));
                 Integer kmers[] = new Integer[w];
                 for (int j = i; j < i + w; j++) {
                     kmers[j - i] = j;
@@ -174,16 +175,18 @@ class buildminimizersa {
             }
             try {
                 FileWriter fw = new FileWriter("../bin/minimizers_vis.txt");
-                fw.write(reference_sentinel.substring(0, 130) + "\n");
-                for (int i = 0; i < 130; i++) {
-                    System.out.println(i + " / " + 130);
-                    for (int j = 0; j < suffixArrayList.get(i); j++) {
-                        fw.write(" ");
+                fw.write(reference_sentinel.substring(0, 3000) + "\n");
+                for (int i = 0; i < 3000; i++) {
+                    System.out.println(i + " / " + 3000);
+                    if ((i > 2945) && (i < 2955)) {
+                        for (int j = 0; j < suffixArrayList.get(i); j++) {
+                            fw.write(" ");
+                        }
+                        for (int j = suffixArrayList.get(i); j < suffixArrayList.get(i) + kmerWidth; j++) {
+                            fw.write(reference_sentinel.charAt(j));
+                        }
+                        fw.write("\n");
                     }
-                    for (int j = suffixArrayList.get(i); j < suffixArrayList.get(i) + kmerWidth; j++) {
-                        fw.write(reference_sentinel.charAt(j));
-                    }
-                    fw.write("\n");
                 }
                 fw.close();
             }
