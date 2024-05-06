@@ -3,7 +3,7 @@ import java.util.*;
 
 class queryminimizersa {
     public static Integer[] my_binary_search(Integer[] suffix_array, int len, int P_len,
-        String reference_sentinel, String P, int char_cmp) {
+        String reference_sentinel, String P, int char_cmp, String query_name) {
         int left = 0;
         int right = len;
         while (left < right) {
@@ -155,6 +155,54 @@ class queryminimizersa {
         Integer[] to_ret = {0, 0};
         return to_ret;
     }
+    public static Integer[] my_lex_binary_search(Integer[] suffix_array, int len, int P_len,
+        String reference_sentinel, String P, int char_cmp, String query_name) {
+        int left = 0;
+        int right = len;
+        while (left < right) {
+            int mid = (int) Math.floor((left + right) / 2);
+            int sac = suffix_array[mid];
+            int pac = 0;
+            int cmp = 0;
+            while ((cmp == 0) && (sac < reference_sentinel.length()) && (pac < (P_len + 1))) {
+                char sac_char = reference_sentinel.charAt(sac);
+                char pac_char = P.charAt(pac);
+                char_cmp++;
+                cmp = Character.compare(pac_char, sac_char);
+                if (cmp != 0) {
+                    break;
+                }
+                sac++;
+                pac++;
+                if ((sac >= reference_sentinel.length()) && (pac < (P_len + 1))) {
+                    cmp = 1;
+                }
+                else if ((sac < reference_sentinel.length()) && (pac >= (P_len + 1))) {
+                    cmp = -1;
+                }
+            }
+            if (cmp < 0) {
+                if ((mid == (left + 1))) {
+                    Integer[] to_ret = {mid, char_cmp};
+                    return to_ret;
+                }
+                else {
+                    right = mid;
+                }
+            }
+            else {
+                if ((mid == (right - 1))) {
+                    Integer[] to_ret = {right, char_cmp};
+                    return to_ret;
+                }
+                else {
+                    left = mid;
+                }
+            }
+        }
+        Integer[] to_ret = {0, 0};
+        return to_ret;
+    }
     public static void main(String args[]) {
         String index = args[0];
         String queries = args[1];
@@ -212,13 +260,13 @@ class queryminimizersa {
                             //Lower bound search
                             String lower_P = P + "#";
                             Integer[] mbs = my_binary_search(suffix_array, len, P_len,
-                                reference_sentinel, lower_P, char_cmp_lb);
+                                reference_sentinel, lower_P, char_cmp_lb, query_name);
                             int lower_bound = mbs[0];
                             char_cmp_lb = mbs[1];
                             //Upper bound search
                             String upper_P = P + "}";
                             Integer[] umbs = my_binary_search(suffix_array, len, P_len,
-                                reference_sentinel, upper_P, char_cmp_ub);
+                                reference_sentinel, upper_P, char_cmp_ub, query_name);
                             int upper_bound = umbs[0];
                             char_cmp_ub = umbs[1];
                             for (int j = lower_bound; j < upper_bound; j++) {
@@ -238,9 +286,7 @@ class queryminimizersa {
                                 Integer[] querySuffixArray = new Integer[P_len - kmerWidth + 1];
                                 for (int j = 0; j <= P_len - kmerWidth; j++) {
                                     querySuffixArray[j] = j;
-                                    System.out.println(j);
                                 }
-                                System.out.println(querySuffixArray.length);
                                 Arrays.sort(querySuffixArray, new Comparator<Integer>() {
                                     @Override
                                     public int compare(Integer o1, Integer o2) {
@@ -269,61 +315,41 @@ class queryminimizersa {
                                 String newP = P.substring(querySuffixArray[0]);
                                 //Lower bound search
                                 String lower_P = newP + "#";
-                                Integer[] mbs = my_binary_search(suffix_array, len, P_len,
-                                    reference_sentinel, lower_P, char_cmp_lb);
+                                Integer[] mbs = my_lex_binary_search(suffix_array, len, newP.length(),
+                                    reference_sentinel, lower_P, char_cmp_lb, query_name);
                                 int lower_bound = mbs[0];
                                 char_cmp_lb = mbs[1];
                                 //Upper bound search
                                 String upper_P = newP + "}";
-                                Integer[] umbs = my_binary_search(suffix_array, len, P_len,
-                                    reference_sentinel, upper_P, char_cmp_ub);
+                                Integer[] umbs = my_lex_binary_search(suffix_array, len, newP.length(),
+                                    reference_sentinel, upper_P, char_cmp_ub, query_name);
                                 int upper_bound = umbs[0];
                                 char_cmp_ub = umbs[1];
-                                if (lower_bound == upper_bound) {
-                                    int start_idx = suffix_array[lower_bound] - querySuffixArray[0];
-                                    boolean hit = true;
-                                    for (int j = start_idx; j < start_idx + P_len; j++) {
-                                        char ch1 = reference_sentinel.charAt(j);
-                                        char ch2 = P.charAt(j - start_idx);
+                                for (int j = lower_bound; j < upper_bound; j++) {
+                                    int start_idx = suffix_array[j] - querySuffixArray[0];
+                                    boolean foundHit = true;
+                                    for (int n = start_idx; n < start_idx + P_len; n++) {
+                                        if ((n < 0) || (n >= reference_sentinel.length())) {
+                                            foundHit = false;
+                                            break;
+                                        }
+                                        char ch1 = reference_sentinel.charAt(n);
+                                        char ch2 = P.charAt(n - start_idx);
                                         int ch_comp = Character.compare(ch1, ch2);
                                         if (ch_comp != 0) {
-                                            hit = false;
+                                            foundHit = false;
                                         }
                                     }
-                                    if (hit) {
-                                        fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t 1 \t" + start_idx + "\n");
-                                    }
-                                    else {
-                                        fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t0\n");
+                                    if (foundHit) {
+                                        m++;
+                                        hits.add(start_idx);
                                     }
                                 }
-                                else { 
-                                    for (int j = lower_bound; j < upper_bound; j++) {
-                                        int start_idx = suffix_array[j] - querySuffixArray[0];
-                                        boolean foundHit = true;
-                                        for (int n = start_idx; n < start_idx + P_len; n++) {
-                                            if ((n < 0) || (n >= reference_sentinel.length())) {
-                                                foundHit = false;
-                                                break;
-                                            }
-                                            char ch1 = reference_sentinel.charAt(n);
-                                            char ch2 = P.charAt(n - start_idx);
-                                            int ch_comp = Character.compare(ch1, ch2);
-                                            if (ch_comp != 0) {
-                                                foundHit = false;
-                                            }
-                                        }
-                                        if (foundHit) {
-                                            m++;
-                                            hits.add(start_idx);
-                                        }
-                                    }
-                                    fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t" + m);
-                                    for (int hit: hits) {
-                                        fw.write("\t" + hit);
-                                    }
-                                    fw.write("\n");
+                                fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t" + m);
+                                for (int hit: hits) {
+                                    fw.write("\t" + hit);
                                 }
+                                fw.write("\n");
                             }
                             else {
                                 fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t0\n");
