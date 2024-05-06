@@ -281,7 +281,7 @@ class queryminimizersa {
                             }
                             fw.write("\n");
                         }
-                        else if (minimizerScheme.equals("lexicographic")) {
+                        else if (minimizerScheme.equals("lexicographic") || minimizerScheme.equals("lexicographic_rev")) {
                             if (P_len >= kmerWidth) {
                                 Integer[] querySuffixArray = new Integer[P_len - kmerWidth + 1];
                                 for (int j = 0; j <= P_len - kmerWidth; j++) {
@@ -292,10 +292,20 @@ class queryminimizersa {
                                     public int compare(Integer o1, Integer o2) {
                                         for (int i = 0; i < kmerWidth; i++) {
                                             if ((o1 + i >= P_len) && (o2 + i < P_len)) {
-                                                return -1;
+                                                if (minimizerScheme.equals("lexicographic")) {
+                                                    return -1;
+                                                }
+                                                else {
+                                                    return 1;
+                                                }
                                             }
                                             if ((o1 + i < P_len) && (o2 + i >= P_len)) {
-                                                return 1;
+                                                if (minimizerScheme.equals("lexicographic")) {
+                                                    return 1;
+                                                }
+                                                else {
+                                                    return -1;
+                                                }
                                             }
                                             if ((o1 + i >= P_len) && (o2 + i >= P_len)) {
                                                 return 0;
@@ -303,7 +313,13 @@ class queryminimizersa {
                                             if ((o1 + i < P_len) && (o2 + i < P_len)) {
                                                 char ch1 = P.charAt(o1 + i);
                                                 char ch2 = P.charAt(o2 + i);
-                                                int ch_comp = Character.compare(ch1, ch2);
+                                                int ch_comp;
+                                                if (minimizerScheme.equals("lexicographic")) {
+                                                    ch_comp = Character.compare(ch1, ch2);
+                                                }
+                                                else {
+                                                    ch_comp = Character.compare(ch2, ch1);
+                                                }
                                                 if (ch_comp != 0) {
                                                     return ch_comp;
                                                 }

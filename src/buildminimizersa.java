@@ -127,7 +127,7 @@ class buildminimizersa {
                 e.printStackTrace();
             }
         }
-        else if (minimizerScheme.equals("lexicographic")) {
+        else if (minimizerScheme.equals("lexicographic") || minimizerScheme.equals("lexicographic_rev")) {
             System.out.println("Building Suffix Array...");
             ArrayList<Integer> suffixArrayList = new ArrayList<Integer>();
             for (int i = 0; i < (len - (kmerWidth + w - 1)); i++) {
@@ -141,10 +141,20 @@ class buildminimizersa {
                     public int compare(Integer o1, Integer o2) {
                         for (int i = 0; i < Math.min(len - o1, len - o2); i++) {
                             if ((o1 + i >= len) && (o2 + i < len)) {
-                                return -1;
+                                if (minimizerScheme.equals("lexicographic")) {
+                                    return -1;                                
+                                }
+                                else {
+                                    return 1;
+                                }
                             }
                             if ((o1 + i < len) && (o2 + i >= len)) {
-                                return 1;
+                                if (minimizerScheme.equals("lexicographic")) {
+                                    return 1;
+                                }
+                                else {
+                                    return -1;
+                                }
                             }
                             if ((o1 + i >= len) && (o2 + i >= len)) {
                                 return 0;
@@ -152,7 +162,13 @@ class buildminimizersa {
                             if ((o1 + i < len) && (o2 + i < len)) {
                                 char ch1 = reference_sentinel.charAt(o1 + i);
                                 char ch2 = reference_sentinel.charAt(o2 + i);
-                                int ch_comp = Character.compare(ch1, ch2);
+                                int ch_comp;
+                                if (minimizerScheme.equals("lexicographic")) {
+                                    ch_comp = Character.compare(ch1, ch2);
+                                }
+                                else {
+                                    ch_comp = Character.compare(ch2, ch1);
+                                }
                                 if (ch_comp != 0) {
                                     return ch_comp;
                                 }
