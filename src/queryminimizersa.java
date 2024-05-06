@@ -234,122 +234,100 @@ class queryminimizersa {
                             fw.write("\n");
                         }
                         else if (minimizerScheme.equals("lexicographic")) {
-                            Integer[] querySuffixArray = new Integer[P_len];
-                            for (int j = 0; j < P_len; j++) {
-                                querySuffixArray[j] = j;
-                            }
-                            Arrays.sort(querySuffixArray, new Comparator<Integer>() {
-                                @Override
-                                public int compare(Integer o1, Integer o2) {
-                                    for (int i = 0; i < Math.min(P_len - o1, P_len - o2); i++) {
-                                        if ((o1 + i >= P_len) && (o2 + i < P_len)) {
-                                            return -1;
-                                        }
-                                        if ((o1 + i < P_len) && (o2 + i >= P_len)) {
-                                            return 1;
-                                        }
-                                        if ((o1 + i >= P_len) && (o2 + i >= P_len)) {
-                                            return 0;
-                                        }
-                                        if ((o1 + i < P_len) && (o2 + i < P_len)) {
-                                            char ch1 = P.charAt(o1 + i);
-                                            char ch2 = P.charAt(o2 + i);
-                                            int ch_comp = Character.compare(ch1, ch2);
-                                            if (ch_comp != 0) {
-                                                return ch_comp;
+                            if (P_len >= kmerWidth) {
+                                Integer[] querySuffixArray = new Integer[P_len - kmerWidth + 1];
+                                for (int j = 0; j <= P_len - kmerWidth; j++) {
+                                    querySuffixArray[j] = j;
+                                    System.out.println(j);
+                                }
+                                System.out.println(querySuffixArray.length);
+                                Arrays.sort(querySuffixArray, new Comparator<Integer>() {
+                                    @Override
+                                    public int compare(Integer o1, Integer o2) {
+                                        for (int i = 0; i < kmerWidth; i++) {
+                                            if ((o1 + i >= P_len) && (o2 + i < P_len)) {
+                                                return -1;
+                                            }
+                                            if ((o1 + i < P_len) && (o2 + i >= P_len)) {
+                                                return 1;
+                                            }
+                                            if ((o1 + i >= P_len) && (o2 + i >= P_len)) {
+                                                return 0;
+                                            }
+                                            if ((o1 + i < P_len) && (o2 + i < P_len)) {
+                                                char ch1 = P.charAt(o1 + i);
+                                                char ch2 = P.charAt(o2 + i);
+                                                int ch_comp = Character.compare(ch1, ch2);
+                                                if (ch_comp != 0) {
+                                                    return ch_comp;
+                                                }
                                             }
                                         }
+                                        return 0;                        
                                     }
-                                    return 0;                        
-                                }
-                            });
-                            String newP = P.substring(querySuffixArray[0]);
-                            //Lower bound search
-                            String lower_P = newP + "#";
-                            Integer[] mbs = my_binary_search(suffix_array, len, P_len,
-                                reference_sentinel, lower_P, char_cmp_lb);
-                            int lower_bound = mbs[0];
-                            char_cmp_lb = mbs[1];
-                            //Upper bound search
-                            String upper_P = newP + "}";
-                            Integer[] umbs = my_binary_search(suffix_array, len, P_len,
-                                reference_sentinel, upper_P, char_cmp_ub);
-                            int upper_bound = umbs[0];
-                            char_cmp_ub = umbs[1];
-                            //System.out.println("----------");
-                            if (lower_bound == upper_bound) {
-                                int start_idx = suffix_array[lower_bound] - querySuffixArray[0];
-                                boolean hit = true;
-                                for (int j = start_idx; j < start_idx + P_len; j++) {
-                                    char ch1 = reference_sentinel.charAt(j);
-                                    char ch2 = P.charAt(j - start_idx);
-                                    int ch_comp = Character.compare(ch1, ch2);
-                                    if (ch_comp != 0) {
-                                        hit = false;
-                                    }
-                                }
-                                if (hit) {
-                                    fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t 1 \t" + start_idx + "\n");
-                                }
-                                else {
-                                    fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t 0\n");
-                                }
-                            }
-                            else { 
-                                for (int j = lower_bound; j < upper_bound; j++) {
-                                    int start_idx = suffix_array[j] - querySuffixArray[0];
-                                    boolean foundHit = true;
-                                    for (int n = start_idx; n < start_idx + P_len; n++) {
-                                        char ch1 = reference_sentinel.charAt(n);
-                                        char ch2 = P.charAt(n - start_idx);
+                                });
+                                String newP = P.substring(querySuffixArray[0]);
+                                //Lower bound search
+                                String lower_P = newP + "#";
+                                Integer[] mbs = my_binary_search(suffix_array, len, P_len,
+                                    reference_sentinel, lower_P, char_cmp_lb);
+                                int lower_bound = mbs[0];
+                                char_cmp_lb = mbs[1];
+                                //Upper bound search
+                                String upper_P = newP + "}";
+                                Integer[] umbs = my_binary_search(suffix_array, len, P_len,
+                                    reference_sentinel, upper_P, char_cmp_ub);
+                                int upper_bound = umbs[0];
+                                char_cmp_ub = umbs[1];
+                                if (lower_bound == upper_bound) {
+                                    int start_idx = suffix_array[lower_bound] - querySuffixArray[0];
+                                    boolean hit = true;
+                                    for (int j = start_idx; j < start_idx + P_len; j++) {
+                                        char ch1 = reference_sentinel.charAt(j);
+                                        char ch2 = P.charAt(j - start_idx);
                                         int ch_comp = Character.compare(ch1, ch2);
                                         if (ch_comp != 0) {
-                                            foundHit = false;
+                                            hit = false;
                                         }
                                     }
-                                    if ((query_name.equals("554:279044:R"))) {
+                                    if (hit) {
+                                        fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t 1 \t" + start_idx + "\n");
+                                    }
+                                    else {
+                                        fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t0\n");
+                                    }
+                                }
+                                else { 
+                                    for (int j = lower_bound; j < upper_bound; j++) {
+                                        int start_idx = suffix_array[j] - querySuffixArray[0];
+                                        boolean foundHit = true;
                                         for (int n = start_idx; n < start_idx + P_len; n++) {
+                                            if ((n < 0) || (n >= reference_sentinel.length())) {
+                                                foundHit = false;
+                                                break;
+                                            }
                                             char ch1 = reference_sentinel.charAt(n);
-                                            System.out.print(ch1);
-                                        }
-                                        System.out.println();
-                                        for (int n = start_idx; n < start_idx + P_len; n++) {
                                             char ch2 = P.charAt(n - start_idx);
-                                            System.out.print(ch2);
+                                            int ch_comp = Character.compare(ch1, ch2);
+                                            if (ch_comp != 0) {
+                                                foundHit = false;
+                                            }
                                         }
-                                        System.out.println();
-                                        System.out.println(start_idx);
-                                        System.out.println(P);
-                                        System.out.println(newP);
-                                        System.out.println("----------");
+                                        if (foundHit) {
+                                            m++;
+                                            hits.add(start_idx);
+                                        }
                                     }
-                                    if (foundHit) {
-                                        m++;
-                                        hits.add(start_idx);
+                                    fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t" + m);
+                                    for (int hit: hits) {
+                                        fw.write("\t" + hit);
                                     }
-                                }
-                                fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t" + m);
-                                for (int hit: hits) {
-                                    fw.write("\t" + hit);
-                                }
-                                fw.write("\n");
-                            }
-                            /*for (int j = lower_bound - querySuffixArray[0]; j < upper_bound; j++) {
-                                if ((suffix_array[j] + P_len) < len) {
-                                    //System.out.println(reference_sentinel.substring(suffix_array[j], suffix_array[j] + P_len));
-                                    m++;
-                                    hits.add(suffix_array[j]);
+                                    fw.write("\n");
                                 }
                             }
-                            System.out.println("P: " + P);
-                            System.out.println("newP: " + newP);
-                            System.out.println("lb: " + (suffix_array[lower_bound] - querySuffixArray[0]));
-                            System.out.println("ub: " + suffix_array[upper_bound]);
-                            fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t" + m);
-                            for (int hit: hits) {
-                                fw.write("\t" + hit);
+                            else {
+                                fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t0\n");
                             }
-                            fw.write("\n");*/
                         }
                     }
                     else if (query_mode.equals("simpaccel")) {
