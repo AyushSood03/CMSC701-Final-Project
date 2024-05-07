@@ -282,15 +282,15 @@ class queryminimizersa {
                             fw.write("\n");
                         }
                         else if (minimizerScheme.equals("lexicographic") || minimizerScheme.equals("lexicographic_rev")) {
-                            if (P_len >= kmerWidth) {
-                                Integer[] querySuffixArray = new Integer[P_len - kmerWidth + 1];
-                                for (int j = 0; j <= P_len - kmerWidth; j++) {
+                            if (/*true*/P_len >= w) {
+                                Integer[] querySuffixArray = new Integer[P_len];
+                                for (int j = 0; j < P_len; j++) {
                                     querySuffixArray[j] = j;
                                 }
                                 Arrays.sort(querySuffixArray, new Comparator<Integer>() {
                                     @Override
                                     public int compare(Integer o1, Integer o2) {
-                                        for (int i = 0; i < kmerWidth; i++) {
+                                        for (int i = 0; i < Math.min(P_len - o1, P_len - o2); i++) {
                                             if ((o1 + i >= P_len) && (o2 + i < P_len)) {
                                                 if (minimizerScheme.equals("lexicographic")) {
                                                     return -1;
