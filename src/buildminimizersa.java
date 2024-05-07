@@ -133,45 +133,24 @@ class buildminimizersa {
             for (int i = 0; i < (len - (kmerWidth + w - 1)); i++) {
                 System.out.println(i + " / " + (len - (kmerWidth + w - 1)));
                 Integer kmers[] = new Integer[w];
-                for (int j = i; j < i + w; j++) {
-                    kmers[j - i] = j;
+                for (int j = 0; j < w; j++) {
+                    kmers[j] = j + i;
                 }
                 Arrays.sort(kmers, new Comparator<Integer>() {
                     @Override
                     public int compare(Integer o1, Integer o2) {
-                        for (int i = 0; i < Math.min(len - o1, len - o2); i++) {
-                            if ((o1 + i >= len) && (o2 + i < len)) {
-                                if (minimizerScheme.equals("lexicographic")) {
-                                    return -1;                                
-                                }
-                                else {
-                                    return 1;
-                                }
+                        for (int i = 0; i < kmerWidth; i++) {
+                            char ch1 = reference_sentinel.charAt(o1 + i);
+                            char ch2 = reference_sentinel.charAt(o2 + i);
+                            int ch_comp;
+                            if (minimizerScheme.equals("lexicographic")) {
+                                ch_comp = Character.compare(ch1, ch2);
                             }
-                            if ((o1 + i < len) && (o2 + i >= len)) {
-                                if (minimizerScheme.equals("lexicographic")) {
-                                    return 1;
-                                }
-                                else {
-                                    return -1;
-                                }
+                            else {
+                                ch_comp = Character.compare(ch2, ch1);
                             }
-                            if ((o1 + i >= len) && (o2 + i >= len)) {
-                                return 0;
-                            }
-                            if ((o1 + i < len) && (o2 + i < len)) {
-                                char ch1 = reference_sentinel.charAt(o1 + i);
-                                char ch2 = reference_sentinel.charAt(o2 + i);
-                                int ch_comp;
-                                if (minimizerScheme.equals("lexicographic")) {
-                                    ch_comp = Character.compare(ch1, ch2);
-                                }
-                                else {
-                                    ch_comp = Character.compare(ch2, ch1);
-                                }
-                                if (ch_comp != 0) {
-                                    return ch_comp;
-                                }
+                            if (ch_comp != 0) {
+                                return ch_comp;
                             }
                         }
                         return 0;                        
@@ -188,26 +167,6 @@ class buildminimizersa {
             }
             if (highestIndex < (len - kmerWidth)) {
                 suffixArrayList.add(suffixArrayList.size() - 1, len - kmerWidth);
-            }
-            try {
-                FileWriter fw = new FileWriter("../bin/minimizers_vis.txt");
-                fw.write(reference_sentinel.substring(0, 3000) + "\n");
-                for (int i = 0; i < 3000; i++) {
-                    System.out.println(i + " / " + 3000);
-                    if ((i > 2945) && (i < 2955)) {
-                        for (int j = 0; j < suffixArrayList.get(i); j++) {
-                            fw.write(" ");
-                        }
-                        for (int j = suffixArrayList.get(i); j < suffixArrayList.get(i) + kmerWidth; j++) {
-                            fw.write(reference_sentinel.charAt(j));
-                        }
-                        fw.write("\n");
-                    }
-                }
-                fw.close();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
             }
             Object temp_suffix_array[] = suffixArrayList.toArray();
             Integer suffix_array[] = new Integer[temp_suffix_array.length];

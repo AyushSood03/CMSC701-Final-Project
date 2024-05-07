@@ -282,47 +282,26 @@ class queryminimizersa {
                             fw.write("\n");
                         }
                         else if (minimizerScheme.equals("lexicographic") || minimizerScheme.equals("lexicographic_rev")) {
-                            if (/*true*/P_len >= w) {
-                                Integer[] querySuffixArray = new Integer[P_len];
-                                for (int j = 0; j < P_len; j++) {
+                            if (P_len > (w + kmerWidth)) {
+                                Integer[] querySuffixArray = new Integer[P_len - kmerWidth + 1];
+                                for (int j = 0; j < P_len - kmerWidth + 1; j++) {
                                     querySuffixArray[j] = j;
                                 }
                                 Arrays.sort(querySuffixArray, new Comparator<Integer>() {
                                     @Override
                                     public int compare(Integer o1, Integer o2) {
-                                        for (int i = 0; i < Math.min(P_len - o1, P_len - o2); i++) {
-                                            if ((o1 + i >= P_len) && (o2 + i < P_len)) {
-                                                if (minimizerScheme.equals("lexicographic")) {
-                                                    return -1;
-                                                }
-                                                else {
-                                                    return 1;
-                                                }
+                                        for (int i = 0; i < kmerWidth; i++) {
+                                            char ch1 = P.charAt(o1 + i);
+                                            char ch2 = P.charAt(o2 + i);
+                                            int ch_comp;
+                                            if (minimizerScheme.equals("lexicographic")) {
+                                                ch_comp = Character.compare(ch1, ch2);
                                             }
-                                            if ((o1 + i < P_len) && (o2 + i >= P_len)) {
-                                                if (minimizerScheme.equals("lexicographic")) {
-                                                    return 1;
-                                                }
-                                                else {
-                                                    return -1;
-                                                }
+                                            else {
+                                                ch_comp = Character.compare(ch2, ch1);
                                             }
-                                            if ((o1 + i >= P_len) && (o2 + i >= P_len)) {
-                                                return 0;
-                                            }
-                                            if ((o1 + i < P_len) && (o2 + i < P_len)) {
-                                                char ch1 = P.charAt(o1 + i);
-                                                char ch2 = P.charAt(o2 + i);
-                                                int ch_comp;
-                                                if (minimizerScheme.equals("lexicographic")) {
-                                                    ch_comp = Character.compare(ch1, ch2);
-                                                }
-                                                else {
-                                                    ch_comp = Character.compare(ch2, ch1);
-                                                }
-                                                if (ch_comp != 0) {
-                                                    return ch_comp;
-                                                }
+                                            if (ch_comp != 0) {
+                                                return ch_comp;
                                             }
                                         }
                                         return 0;                        
@@ -361,14 +340,14 @@ class queryminimizersa {
                                         hits.add(start_idx);
                                     }
                                 }
-                                fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t" + m);
+                                fw.write(query_name + "\t" + P_len + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t" + m);
                                 for (int hit: hits) {
                                     fw.write("\t" + hit);
                                 }
                                 fw.write("\n");
                             }
                             else {
-                                fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t0\n");
+                                fw.write(query_name + "\t" + P_len + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t0\n");
                             }
                         }
                     }
