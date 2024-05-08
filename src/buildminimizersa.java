@@ -49,6 +49,7 @@ class buildminimizersa {
         if (minimizerScheme.equals("none")) {
             Integer suffix_array[] = new Integer[len];
             for (int i = 0; i < len; i++) {
+                System.out.println(i + " / " + len);
                 suffix_array[i] = i;
             }
             Arrays.sort(suffix_array, new Comparator<Integer>() {
@@ -156,9 +157,7 @@ class buildminimizersa {
                         return 0;                        
                     }
                 });
-                if (!suffixArrayList.contains(kmers[0])) {
-                    suffixArrayList.add(kmers[0]);
-                }
+                suffixArrayList.add(kmers[0]);
             }
             System.out.println("Checking End Minimizers...");
             int highestIndex = suffixArrayList.get(suffixArrayList.size() - 1);
@@ -168,7 +167,9 @@ class buildminimizersa {
             if (highestIndex < (len - kmerWidth)) {
                 suffixArrayList.add(suffixArrayList.size() - 1, len - kmerWidth);
             }
-            Object temp_suffix_array[] = suffixArrayList.toArray();
+            Set<Integer> suffixSet = new HashSet<Integer>(suffixArrayList);
+            List<Integer> newSuffixArrayList = new ArrayList<Integer>(suffixSet);            
+            Object temp_suffix_array[] = newSuffixArrayList.toArray();
             Integer suffix_array[] = new Integer[temp_suffix_array.length];
             for (int i = 0; i < suffix_array.length; i++) {
                 suffix_array[i] = (Integer) temp_suffix_array[i];
