@@ -208,6 +208,7 @@ class queryminimizersa {
         String queries = args[1];
         String query_mode = args[2];
         String output = args[3];
+        String superficialQueryLenCheck = args[4];
         try {
             FileInputStream fis = new FileInputStream(index);
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -257,29 +258,31 @@ class queryminimizersa {
                     int P_len = P.length();
                     if (query_mode.equals("naive")) {
                         if (minimizerScheme.equals("None")) {
-                            //Lower bound search
-                            String lower_P = P + "#";
-                            Integer[] mbs = my_binary_search(suffix_array, len, P_len,
-                                reference_sentinel, lower_P, char_cmp_lb, query_name);
-                            int lower_bound = mbs[0];
-                            char_cmp_lb = mbs[1];
-                            //Upper bound search
-                            String upper_P = P + "}";
-                            Integer[] umbs = my_binary_search(suffix_array, len, P_len,
-                                reference_sentinel, upper_P, char_cmp_ub, query_name);
-                            int upper_bound = umbs[0];
-                            char_cmp_ub = umbs[1];
-                            for (int j = lower_bound; j < upper_bound; j++) {
-                                if ((suffix_array[j] + P_len) < len) {
-                                    m++;
-                                    hits.add(suffix_array[j]);
+                            if (P_len > Integer.parseInt(superficialQueryLenCheck)) {
+                                //Lower bound search
+                                String lower_P = P + "#";
+                                Integer[] mbs = my_binary_search(suffix_array, len, P_len,
+                                    reference_sentinel, lower_P, char_cmp_lb, query_name);
+                                int lower_bound = mbs[0];
+                                char_cmp_lb = mbs[1];
+                                //Upper bound search
+                                String upper_P = P + "}";
+                                Integer[] umbs = my_binary_search(suffix_array, len, P_len,
+                                    reference_sentinel, upper_P, char_cmp_ub, query_name);
+                                int upper_bound = umbs[0];
+                                char_cmp_ub = umbs[1];
+                                for (int j = lower_bound; j < upper_bound; j++) {
+                                    if ((suffix_array[j] + P_len) < len) {
+                                        m++;
+                                        hits.add(suffix_array[j]);
+                                    }
                                 }
+                                fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t" + m);
+                                for (int hit: hits) {
+                                    fw.write("\t" + hit);
+                                }
+                                fw.write("\n");                                
                             }
-                            fw.write(query_name + "\t" + char_cmp_lb + "\t" + char_cmp_ub + "\t" + m);
-                            for (int hit: hits) {
-                                fw.write("\t" + hit);
-                            }
-                            fw.write("\n");
                         }
                         else if (minimizerScheme.equals("lexicographic") || minimizerScheme.equals("lexicographic_rev")) {
                             if (P_len > (w + kmerWidth)) {

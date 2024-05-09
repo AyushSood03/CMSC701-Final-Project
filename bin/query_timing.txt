@@ -1,0 +1,122 @@
+Standard Suffix Array 10 Elapsed Time (ns): 48338094700 ns
+
+Lexicographic Suffix Array 1 9 Elapsed Time (ns): 54944022800 ns
+Reverse Lexicographic Suffix Array 1 9 Elapsed Time (ns): 52358215400 ns
+Lexicographic Suffix Array 2 8 Elapsed Time (ns): 28414830800 ns
+Reverse Lexicographic Suffix Array 2 8 Elapsed Time (ns): 31323948000 ns
+Lexicographic Suffix Array 3 7 Elapsed Time (ns): 19903805500 ns
+Reverse Lexicographic Suffix Array 3 7 Elapsed Time (ns): 18483775300 ns
+Lexicographic Suffix Array 4 6 Elapsed Time (ns): 13150926500 ns
+Reverse Lexicographic Suffix Array 4 6 Elapsed Time (ns): 12805171100 ns
+Lexicographic Suffix Array 5 5 Elapsed Time (ns): 10932292400 ns
+Reverse Lexicographic Suffix Array 5 5 Elapsed Time (ns): 11074576700 ns
+Lexicographic Suffix Array 6 4 Elapsed Time (ns): 8998019400 ns
+Reverse Lexicographic Suffix Array 6 4 Elapsed Time (ns): 9227024700 ns
+Lexicographic Suffix Array 7 3 Elapsed Time (ns): 7460137100 ns
+Reverse Lexicographic Suffix Array 7 3 Elapsed Time (ns): 6864875600 ns
+Lexicographic Suffix Array 8 2 Elapsed Time (ns): 6346721300 ns
+Reverse Lexicographic Suffix Array 8 2 Elapsed Time (ns): 6454861300 ns
+Lexicographic Suffix Array 9 1 Elapsed Time (ns): 7005598900 ns
+Reverse Lexicographic Suffix Array 9 1 Elapsed Time (ns): 7321860300 ns
+
+Standard Suffix Array 20 Elapsed Time (ns): 51037506800 ns
+
+Lexicographic Suffix Array 1 19 Elapsed Time (ns): 53695989500 ns
+Reverse Lexicographic Suffix Array 1 19 Elapsed Time (ns): 54317880700 ns
+Lexicographic Suffix Array 2 18 Elapsed Time (ns): 29315031000 ns
+Reverse Lexicographic Suffix Array 2 18 Elapsed Time (ns): 30844335900 ns
+Lexicographic Suffix Array 3 17 Elapsed Time (ns): 18236196700 ns
+Reverse Lexicographic Suffix Array 3 17 Elapsed Time (ns): 18035433500 ns
+Lexicographic Suffix Array 4 16 Elapsed Time (ns): 14360727300 ns
+Reverse Lexicographic Suffix Array 4 16 Elapsed Time (ns): 13758313500 ns
+Lexicographic Suffix Array 5 15 Elapsed Time (ns): 10467201700 ns
+Reverse Lexicographic Suffix Array 5 15 Elapsed Time (ns): 10532760600 ns
+Lexicographic Suffix Array 6 14 Elapsed Time (ns): 8169920900 ns
+Reverse Lexicographic Suffix Array 6 14 Elapsed Time (ns): 8867665500 ns
+Lexicographic Suffix Array 7 13 Elapsed Time (ns): 7521259900 ns
+Reverse Lexicographic Suffix Array 7 13 Elapsed Time (ns): 6797451500 ns
+Lexicographic Suffix Array 8 12 Elapsed Time (ns): 5485455700 ns
+Reverse Lexicographic Suffix Array 8 12 Elapsed Time (ns): 5371081900 ns
+Lexicographic Suffix Array 9 11 Elapsed Time (ns): 4731601000 ns
+Reverse Lexicographic Suffix Array 9 11 Elapsed Time (ns): 4665627800 ns
+Lexicographic Suffix Array 10 10 Elapsed Time (ns): 4123028800 ns
+Reverse Lexicographic Suffix Array 10 10 Elapsed Time (ns): 4112394100 ns
+Lexicographic Suffix Array 11 9 Elapsed Time (ns): 3724504800 ns
+Reverse Lexicographic Suffix Array 11 9 Elapsed Time (ns): 3717508100 ns
+Lexicographic Suffix Array 12 8 Elapsed Time (ns): 3574500000 ns
+Reverse Lexicographic Suffix Array 12 8 Elapsed Time (ns): 3270597800 ns
+Lexicographic Suffix Array 13 7 Elapsed Time (ns): 3146607300 ns
+Reverse Lexicographic Suffix Array 13 7 Elapsed Time (ns): 3022351600 ns
+Lexicographic Suffix Array 14 6 Elapsed Time (ns): 2841261800 ns
+Reverse Lexicographic Suffix Array 14 6 Elapsed Time (ns): 2924655100 ns
+Lexicographic Suffix Array 15 5 Elapsed Time (ns): 2648805100 ns
+Reverse Lexicographic Suffix Array 15 5 Elapsed Time (ns): 2688533900 ns
+Lexicographic Suffix Array 16 4 Elapsed Time (ns): 2841855800 ns
+Reverse Lexicographic Suffix Array 16 4 Elapsed Time (ns): 2838488200 ns
+Lexicographic Suffix Array 17 3 Elapsed Time (ns): 3138965100 ns
+Reverse Lexicographic Suffix Array 17 3 Elapsed Time (ns): 3158739100 ns
+Lexicographic Suffix Array 18 2 Elapsed Time (ns): 3749832200 ns
+Reverse Lexicographic Suffix Array 18 2 Elapsed Time (ns): 3250984400 ns
+Lexicographic Suffix Array 19 1 Elapsed Time (ns): 5177004500 ns
+Reverse Lexicographic Suffix Array 19 1 Elapsed Time (ns): 5312942200 ns
+
+Standard Suffix Array 30 Elapsed Time (ns): 50743857300 ns
+
+Lexicographic Suffix Array 1 29 Elapsed Time (ns): 53312043200 ns
+Reverse Lexicographic Suffix Array 1 29 Elapsed Time (ns): 54221918200 ns
+Lexicographic Suffix Array 2 28 Elapsed Time (ns): 29491486600 ns
+Reverse Lexicographic Suffix Array 2 28 Elapsed Time (ns): 32812780900 ns
+Lexicographic Suffix Array 3 27 Elapsed Time (ns): 18299508600 ns
+Reverse Lexicographic Suffix Array 3 27 Elapsed Time (ns): 19369638900 ns
+Lexicographic Suffix Array 4 26 Elapsed Time (ns): 13711085600 ns
+Reverse Lexicographic Suffix Array 4 26 Elapsed Time (ns): 12842888800 ns
+Lexicographic Suffix Array 5 25 Elapsed Time (ns): 10227930900 ns
+Reverse Lexicographic Suffix Array 5 25 Elapsed Time (ns): 9685941300 ns
+Lexicographic Suffix Array 6 24 Elapsed Time (ns): 7692128500 ns
+Reverse Lexicographic Suffix Array 6 24 Elapsed Time (ns): 7742788300 ns
+Lexicographic Suffix Array 7 23 Elapsed Time (ns): 6593292500 ns
+Reverse Lexicographic Suffix Array 7 23 Elapsed Time (ns): 6392676300 ns
+Lexicographic Suffix Array 8 22 Elapsed Time (ns): 5498647000 ns
+Reverse Lexicographic Suffix Array 8 22 Elapsed Time (ns): 5344601000 ns
+Lexicographic Suffix Array 9 21 Elapsed Time (ns): 4643638800 ns
+Reverse Lexicographic Suffix Array 9 21 Elapsed Time (ns): 4532867100 ns
+Lexicographic Suffix Array 10 20 Elapsed Time (ns): 4187454700 ns
+Reverse Lexicographic Suffix Array 10 20 Elapsed Time (ns): 4068594300 ns
+Lexicographic Suffix Array 11 19 Elapsed Time (ns): 3733754500 ns
+Reverse Lexicographic Suffix Array 11 19 Elapsed Time (ns): 3650546800 ns
+Lexicographic Suffix Array 12 18 Elapsed Time (ns): 3305091900 ns
+Reverse Lexicographic Suffix Array 12 18 Elapsed Time (ns): 3309355800 ns
+Lexicographic Suffix Array 13 17 Elapsed Time (ns): 3064295800 ns
+Reverse Lexicographic Suffix Array 13 17 Elapsed Time (ns): 2972601300 ns
+Lexicographic Suffix Array 14 16 Elapsed Time (ns): 2890147000 ns
+Reverse Lexicographic Suffix Array 14 16 Elapsed Time (ns): 2756682000 ns
+Lexicographic Suffix Array 15 15 Elapsed Time (ns): 2670745200 ns
+Reverse Lexicographic Suffix Array 15 15 Elapsed Time (ns): 2516731300 ns
+Lexicographic Suffix Array 16 14 Elapsed Time (ns): 2503157500 ns
+Reverse Lexicographic Suffix Array 16 14 Elapsed Time (ns): 2358533200 ns
+Lexicographic Suffix Array 17 13 Elapsed Time (ns): 2344312800 ns
+Reverse Lexicographic Suffix Array 17 13 Elapsed Time (ns): 2260450000 ns
+Lexicographic Suffix Array 18 12 Elapsed Time (ns): 2183665000 ns
+Reverse Lexicographic Suffix Array 18 12 Elapsed Time (ns): 2111225800 ns
+Lexicographic Suffix Array 19 11 Elapsed Time (ns): 2064058500 ns
+Reverse Lexicographic Suffix Array 19 11 Elapsed Time (ns): 2032700000 ns
+Lexicographic Suffix Array 20 10 Elapsed Time (ns): 1912663300 ns
+Reverse Lexicographic Suffix Array 20 10 Elapsed Time (ns): 2003954000 ns
+Lexicographic Suffix Array 21 9 Elapsed Time (ns): 1929250100 ns
+Reverse Lexicographic Suffix Array 21 9 Elapsed Time (ns): 1823180500 ns
+Lexicographic Suffix Array 22 8 Elapsed Time (ns): 1810895800 ns
+Reverse Lexicographic Suffix Array 22 8 Elapsed Time (ns): 1734843900 ns
+Lexicographic Suffix Array 23 7 Elapsed Time (ns): 1765257100 ns
+Reverse Lexicographic Suffix Array 23 7 Elapsed Time (ns): 1721868300 ns
+Lexicographic Suffix Array 24 6 Elapsed Time (ns): 1628810300 ns
+Reverse Lexicographic Suffix Array 24 6 Elapsed Time (ns): 1659094400 ns
+Lexicographic Suffix Array 25 5 Elapsed Time (ns): 1644197300 ns
+Reverse Lexicographic Suffix Array 25 5 Elapsed Time (ns): 1564148300 ns
+Lexicographic Suffix Array 26 4 Elapsed Time (ns): 1658415900 ns
+Reverse Lexicographic Suffix Array 26 4 Elapsed Time (ns): 1594813000 ns
+Lexicographic Suffix Array 27 3 Elapsed Time (ns): 1872000200 ns
+Reverse Lexicographic Suffix Array 27 3 Elapsed Time (ns): 2004037400 ns
+Lexicographic Suffix Array 28 2 Elapsed Time (ns): 2182361000 ns
+Reverse Lexicographic Suffix Array 28 2 Elapsed Time (ns): 2616454400 ns
+Lexicographic Suffix Array 29 1 Elapsed Time (ns): 4967397800 ns
+Reverse Lexicographic Suffix Array 29 1 Elapsed Time (ns): 5360222100 ns
